@@ -33,5 +33,6 @@ After launch, SSH into the instance:
 
 ```bash
 ssh -i "your-key.pem" ec2-user@<EC2-Public-IP>
+```
 
 ### 2. Install Dependencies on EC2
