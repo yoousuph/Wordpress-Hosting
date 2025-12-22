@@ -9,11 +9,13 @@
 ```bash
 sudo dnf update -y
 ```
+https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG
 
 **Install Apache web server**
 ```bash
 sudo dnf install httpd -y
 ```
+https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG
 
 **Start and enable Apache web server**
 ```bash
