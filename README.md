@@ -1,9 +1,47 @@
-# Create a wordpress website using EC2 and RDS
+# WORDPRESS WEBSITE HOSTING
 
-1. Launch an ec2 instance (Launch Amazon Linux 2)
-2. Launch rds cluster 
-3. Configure ec2 instance to connect to rds
 
+# Introduction
+This project demonstartes hosting of a wordpress website on an EC2 istance conecting with a Database using RDS Database Instance. It is built in an isolated Virtual Private Cloud(VPC) form scratch.
+
+# Tech Stack
+**AWS Services Used**
+* Virtual Private Cloud (VPC)
+* Elastic Compute Cloud (EC2)
+* Relational Dtatabase Service (RDS)
+
+# Procedure
+**Setup a VPC**
+* Create 1 VPC
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
+* Create 3 Subnets
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
+* Create 1 Secondary Route Table
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
+* Create 1 Internet Gateway
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
+
+**Launch an EC2 Instance**
+* Create 1 EC2 Instance - to host wordpress server
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
+* Create a Key Pair - Keep for login purpose
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
+* Create Security Group - Inbound & Outbound Rules
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
+
+**Create an RDS Instance**
+* Create 1 RDS Instance - to store database server
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
+* Create Security Group - Inbound & Outbound Rules
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
+* Create a Subnet Group - for the multi-AZ availability
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
+
+
+```bash
+sudo dnf update -y
+```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
 
 **Update the EC2 instance**
 ```bash
@@ -11,104 +49,142 @@ sudo dnf update -y
 ```
 ![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
 
-
 **Install Apache web server**
 ```bash
 sudo dnf install httpd -y
 ```
-https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
 
 **Start and enable Apache web server**
 ```bash
 sudo systemctl start httpd
 sudo systemctl enable httpd
 ```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
 
 **Install mysql server**
 ```bash
 sudo dnf install -y mariadb105
 ```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
 
 **Log in to mysql client**
 ```bash
 mysql -h wp-db.cibiocykye8k.us-east-1.rds.amazonaws.com -u admin -p
 ```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
 
-**Check all default current database**
+**Check default current database**
 ```bash
 show databases;
 ```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
 
 **Create a database for you wordpress website**
 ```bash
 CRAETE DATABASE wordpress_db;
 ```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
 
-Example : export MYSQL_HOST=yt-wordpress.cfpgnjehw330.ap-south-1.rds.amazonaws.com
-
-
-**Now Connect to mysql to create required user users that we are going to use**
-
-*Connect to RDS using below command (Replace the host-info and user info)*
-
+**Check current database to confirm the newly created database**
 ```bash
-mysql -h yt-wordpress.cfpgnjehw330.ap-south-1.rds.amazonaws.com -P 3306 -u admin -p
+show databases;
 ```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
 
-Create required Database, user and provide permisisons to newsly created user on schema we created.
-
+**Create database user**
 ```bash
-CREATE DATABASE wordpress;
-CREATE USER 'wordpressuser' IDENTIFIED BY 'Avinash1234';
-GRANT ALL PRIVILEGES ON wordpress.* TO wordpressuser;
-FLUSH PRIVILEGES;
-Exit
+CREATE USER 'yusuf'@'%' IDENTIFIED BY 'yusuf123';
 ```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
 
-**Now Install and configure apache**
-
+**Grant database user access to the database**
 ```bash
-sudo yum install -y httpd
+GRANT ALL PRIVILEDGES ON wordpress_db.* TO 'yusuf'@'%';
 ```
-Start Apache Service
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
 
+**Flush priviledges**
 ```bash
-sudo service httpd start
+FLUSH PRIVILEDGES;
 ```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
 
-**Download a wordpress template and unzip the wordpress**
-
+**Test user login access**
 ```bash
-wget https://wordpress.org/latest.tar.gz
-```
+mysql -h wp-db.cibiocykye8k.us-east-1.rds.amazonaws.com -u yusuf -p
+```![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
 
+**Install all PHP dependencies**
 ```bash
-tar -xzf latest.tar.gz
+sudo dnf install php php-mysqlnd php-fpm php-gd php-xml php-mbstring php-json -y
 ```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
 
+**Install all PHP dependencies**
 ```bash
-ls
+sudo dnf install php php-mysqlnd php-fpm php-gd php-xml php-mbstring php-json -y
 ```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
 
-When you enter ls it should deisplay these files and directory "latest.tar.gz" and "wordpress"
-
+**Restart and enable Apache web server**
 ```bash
-cd wordpress
+sudo systemctl restart httpd
 ```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
 
-**create a wp-config file from sample file already provided**
-
+**Change directory into html folder**
 ```bash
-cp wp-config-sample.php wp-config.php
+cd var/www/html
 ```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
 
-**edit the wp-config.php file to point to database**
-
+**Download wordpress inside html folder and unzip it**
 ```bash
-vim wp-config.php
+sudo wget https://wordpress.org/latest.tar.gz
+sudo tar -xzf latest.tar.gz
 ```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
 
-***Replace the Database_name_here , "username_here", "password_here" and "rds-endpoint-name" with valid info***
+**Download wordpress inside html folder and unzip it**
+```bash
+sudo wget https://wordpress.org/latest.tar.gz
+sudo tar -xzf latest.tar.gz
+```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
+
+**Move all the contents of extracted wordpress folder into the previous folder**
+```bash
+sudo mv wordpress/* .
+```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
+
+**Remove the emptyed wordpress folder and the downloaded zip file from the folder**
+```bash
+sudo rm -rf wordpress latest.tar.gz
+```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
+
+**Give administrative rights to apache server**
+```bash
+sudo chown -R apache:apache /var/www/html
+sudo chmod -R 755 apache:apache /var/www/html
+```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
+
+**Move all contenets in wp-config-sample php file into a new wp-config file**
+```bash
+sudo cp wp-config-sample.php wp-config.php
+```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
+
+**Open thw w-config file with any editor of your choice (nano in this case)**
+```bash
+sudo nano wp-config.php
+```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
+
+**Replace the Database_name_here , "username_here", "password_here" and "rds-endpoint-name" with valid info**
 
 ```bash
 // ** MySQL settings - You can get this info from your web host ** //
@@ -124,15 +200,16 @@ define( 'DB_PASSWORD', 'password_here' );
 /** MySQL hostname */
 define( 'DB_HOST', 'rds-endpoint-name' );
 ```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
 
-
-Now go to below link and it provides some information to update the wp-config file. It looks like below shared one.
+**Go to below link and it provides some information to update the wp-config file. It looks like below shared one.**
 
 ```bash
 https://api.wordpress.org/secret-key/1.1/salt/
 ```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
 
-***Acquire the valid information and update wp-config file accordingly***
+**Acquire the valid information and update wp-config file accordingly**
 
 ```bash
 define('AUTH_KEY',         '+7CA?k*Ju&8eCfg=/aFKo0tO5Tn73Cg 9|Ed73k|Gw(3^');
@@ -144,24 +221,32 @@ define('SECURE_AUTH_SALT', '@%ka=9?}BQ[m#29D+@jkgjkhjkhjkhkjhkjdTZ`MT{|fypE~');
 define('LOGGED_IN_SALT',   'o!UX5|LW4eijhjkbhkjhkjkjbnjjb/1JSPS?e`YW*nrWb|FG ');
 define('NONCE_SALT',       '+t}kH4DA`jhbjkbjkbjkbjkbjkbt8(iWX(]e?&tV;k:>|)IoE');
 ```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
 
-**Now install dependencies**
+**Open the ip address of your server to the web browser**
 
-```bash
-sudo amazon-linux-extras install -y lamp-mariadb10.2-php7.2 php7.2
-```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
 
-**come back to home directory and copy all content to /var/www/html, Then restart the service.**
 
-```bash
-cd /home/ec2-user
-```
+**Configure your hosted wordpress website**
 
-```bash
-sudo cp -r wordpress/* /var/www/html/
-```
-```bash
-sudo service httpd restart
-```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
 
-**Get your instance public IP and Paste it in browser, It should give you wordpress initial configuration page.** 
+
+**Login to the website**
+
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
