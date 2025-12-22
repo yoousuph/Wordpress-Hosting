@@ -9,7 +9,8 @@
 ```bash
 sudo dnf update -y
 ```
-https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG
+https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG ![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
+
 
 **Install Apache web server**
 ```bash
