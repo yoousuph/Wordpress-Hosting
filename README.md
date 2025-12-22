@@ -5,16 +5,40 @@
 3. Configure ec2 instance to connect to rds
 
 
-**Install mysql client in ec2 instance to connect to RDS cluster**
-
+**Update the EC2 instance**
 ```bash
-sudo yum install -y mysql
+sudo dnf update -y
 ```
 
-**Export mysql endpoint as MySQSL_HOST Variable**
-
+**Install Apache web server**
 ```bash
-export MYSQL_HOST=<your-RDS-endpoint>
+sudo dnf install httpd -y
+```
+
+**Start and enable Apache web server**
+```bash
+sudo systemctl start httpd
+sudo systemctl enable httpd
+```
+
+**Install mysql server**
+```bash
+sudo dnf install -y mariadb105
+```
+
+**Log in to mysql client**
+```bash
+mysql -h wp-db.cibiocykye8k.us-east-1.rds.amazonaws.com -u admin -p
+```
+
+**Check all default current database**
+```bash
+show databases;
+```
+
+**Create a database for you wordpress website**
+```bash
+CRAETE DATABASE wordpress_db;
 ```
 
 Example : export MYSQL_HOST=yt-wordpress.cfpgnjehw330.ap-south-1.rds.amazonaws.com
