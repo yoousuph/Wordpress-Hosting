@@ -1,5 +1,7 @@
 # WORDPRESS WEBSITE HOSTING
 
+# Architecture
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/wp hosting architecture.jpeg)
 
 # Introduction
 This project demonstartes hosting of a wordpress website on an EC2 istance conecting with a Database using RDS Database Instance. It is built in an isolated Virtual Private Cloud(VPC) form scratch.
