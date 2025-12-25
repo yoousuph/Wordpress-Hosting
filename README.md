@@ -39,7 +39,7 @@ This project demonstartes hosting of a wordpress website on an EC2 istance conec
 * Create a Subnet Group - for the multi-AZ availability
 ![Project Screenshot 1.12.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.12.JPG)
 
-**SSH into the wordpress EC2 instance (Using Putty in this case) and Update, and install Apache web server**
+**SSH into the wordpress EC2 instance (Using Putty in this case), update, and install Apache web server**
 ```bash
 ec2-user@<your EC2 instance IPv4 address>
 ```
