@@ -13,7 +13,7 @@ This project demonstartes hosting of a wordpress website on an EC2 istance conec
 ![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/wp-hosting-architecture.jpeg)
 
 # Procedure
-**Setup a VPC**
+## Setup a VPC
 * Create 1 VPC
 ![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
 * Create 3 Subnets
@@ -23,7 +23,7 @@ This project demonstartes hosting of a wordpress website on an EC2 istance conec
 * Create 1 Internet Gateway
 ![Project Screenshot 1.6.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.6.JPG)
 
-**Launch an EC2 Instance**
+## Launch an EC2 Instance
 * Create 1 EC2 Instance - to host wordpress server
 ![Project Screenshot 1.7.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.7.JPG)
 * Create a Key Pair - Keep for login purpose
@@ -31,7 +31,7 @@ This project demonstartes hosting of a wordpress website on an EC2 istance conec
 * Create Security Group - Inbound & Outbound Rules
 ![Project Screenshot 1.10.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.10.JPG)
 
-**Create an RDS Instance**
+## Create an RDS Instance
 * Create 1 RDS Instance - to store database server
 ![Project Screenshot 1.9.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.9.JPG)
 * Create Security Group - Inbound & Outbound Rules
