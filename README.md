@@ -39,11 +39,11 @@ This project demonstartes hosting of a wordpress website on an EC2 istance conec
 * Create a Subnet Group - for the multi-AZ availability
 ![Project Screenshot 1.12.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.12.JPG)
 
-**SSH into the wordpress ec2 instance (Using Putty in this case)**
+**SSH into the wordpress EC2 instance (Using Putty in this case) and Update, and install Apache web server**
+```bash
 ec2-user@<your EC2 instance IPv4 address>
-![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
-
-**Update the EC2 instance and install Apache web server**
+```
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.JPG)
 ```bash
 sudo dnf update -y
 sudo dnf install httpd -y
