@@ -1,10 +1,10 @@
 # WORDPRESS HOSTING ON AMAZON EC2 AND RDS
 
 # Introduction
-This project demonstartes hosting of a wordpress website on an EC2 istance conecting with a Database using RDS Database Instance. It is built in an isolated Virtual Private Cloud(VPC) form scratch.
+This project demonstartes how a wordpress website is being deployed on an Amazon EC2 instance, conecting with a Database using RDS Database Instance. It is built in an isolated Virtual Private Cloud(VPC) form scratch.
 
 # Architecture Diagram Overview
-* Users will request to open WordPress website, that request will be received by Route 53 which is a domain Management Service in AWS.
+* 
 * ALB also support SSL certificate through AWS Certificate Manager, we will use it to issue a new SSL certificate for our domain name and ALB will apply that SSL certificate and send request to EC2 instance.
 * EC2 instance is a virtual server where we will install all the needed packages to run WordPress  and create files of our WordPress website.
 * We will make EC2 and RDS accessible to public source and enforce security via Security Group rules.
