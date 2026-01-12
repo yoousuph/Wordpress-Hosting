@@ -1,28 +1,28 @@
-# WORDPRESS HOSTING ON AMAZON EC2 AND RDS
+# WORDPRESS WEBSITE HOSTING
 
 # Introduction
-This project demonstartes how a wordpress website is being deployed on an Amazon EC2 instance, conecting with a Database using RDS Database Instance. It is built in an isolated Virtual Private Cloud(VPC) form scratch.
+This project demonstartes how Wordpres website is hosted on an EC2 instance conecting to  an RDS database. It is built in a Virtual Private Cloud(VPC) for isolated network connectivity.
 
-# Architecture Diagram Overview
-* 
-* ALB also support SSL certificate through AWS Certificate Manager, we will use it to issue a new SSL certificate for our domain name and ALB will apply that SSL certificate and send request to EC2 instance.
-* EC2 instance is a virtual server where we will install all the needed packages to run WordPress  and create files of our WordPress website.
-* We will make EC2 and RDS accessible to public source and enforce security via Security Group rules.
-* We will create an EC2 instance which will be our Virtual Server and RDS instance which will be used for Database Hosting.
-  
-![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/wp-hosting-architecture.jpeg)
+# Project Overview
+* Launched a separate VPC for isolted network in the AWS environment, in which there are 3 subnets.
+    - 1 public subnet for the Wordpress server (EC2 iinstance).
+    - 2 private subnets for the RDS which is reqired for the RDS subnet group.
+* EC2 instance launch in the public subnet for internet connectivity to install required files.
+* RDS instance launch as wordpress is required for connecting to a database.
+* Setup Security groups for the services to talk to each other based on inbound and outbound rules.
+* Create an internet gateway, routed to the public subnet where wordpress server will be situated.
 
-
-# Tech Stack
+# Technology Used
 * Virtual Private Cloud (VPC)
 * Elastic Compute Cloud (EC2)
 * Relational Dtatabase Service (RDS)
-- WordPress package
+* Internet gateway (IGW)
 
+# Reference Architecture
+![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/wp-hosting-architecture.jpeg)
 
-# Procedure
-
-## Setup a VPC
+# Steps
+**Setup a VPC**
 * Create 1 VPC
 ![Project Screenshot 1.1.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.1.JPG)
 * Create 3 Subnets
@@ -32,7 +32,7 @@ This project demonstartes how a wordpress website is being deployed on an Amazon
 * Create 1 Internet Gateway
 ![Project Screenshot 1.6.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.6.JPG)
 
-## Launch an EC2 Instance
+**Launch an EC2 Instance**
 * Create 1 EC2 Instance - to host wordpress server
 ![Project Screenshot 1.7.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.7.JPG)
 * Create a Key Pair - Keep for login purpose
@@ -40,7 +40,7 @@ This project demonstartes how a wordpress website is being deployed on an Amazon
 * Create Security Group - Inbound & Outbound Rules
 ![Project Screenshot 1.10.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.10.JPG)
 
-## Create an RDS Instance
+**Create an RDS Instance**
 * Create 1 RDS Instance - to store database server
 ![Project Screenshot 1.9.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.9.JPG)
 * Create Security Group - Inbound & Outbound Rules
@@ -48,7 +48,7 @@ This project demonstartes how a wordpress website is being deployed on an Amazon
 * Create a Subnet Group - for the multi-AZ availability
 ![Project Screenshot 1.12.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/1.12.JPG)
 
-**SSH into the wordpress EC2 instance (Using Putty in this case), update, and install Apache web server**
+**SSH into the wordpress EC2 instance (Using Putty in this case) and Update, and install Apache web server**
 ```bash
 ec2-user@<your EC2 instance IPv4 address>
 ```
@@ -187,3 +187,6 @@ Fill all prefered informations as desired
 
 **Your hosted website is ready**
 ![Project Screenshot 17.JPG](https://github.com/yoousuph/Wordpress-Hosting/blob/main/images/17.JPG)
+
+# Conclusion
+All highlighted in this project showcase my skills in deploying a wordpres website. It has helpd me understand the core concepts that are needed to successfully deploy a wordpress website on a separate EC2 instance.
